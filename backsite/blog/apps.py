@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class BlogConfig(AppConfig):
     name = 'blog'
-    verbose_name='博客'
+#app设置为中文名称,找到app下的apps.py文件 
