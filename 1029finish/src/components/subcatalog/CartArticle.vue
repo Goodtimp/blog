@@ -6,10 +6,10 @@
         <a :href="'/article/'+id"><img :src="cartImage" width="100%" /></a>
       </div>
     </el-col>
-    <el-col :span="10" class="my-text">
+    <el-col :span="9" :offset="1" class="my-text">
       <div class="grid-content bg-purple-light">
-        <a :href="'/article/'+id"><h3>{{title}}</h3></a>
-        {{ abstract }}
+        <a :href="'/article/'+id"><h2>{{title}}</h2></a>
+        <p style="margin-top:10px;text-align:left; text-indent:2em;">  {{ abstract }}</p>
       </div>
     </el-col>
    
@@ -21,10 +21,9 @@ import api from "../../assets/api.js"
 export default {
   data() {
     return {
-      abstract:"First",
     }
   },
-  props: ['title', 'id','cartImage']
+  props: ['title', 'id','cartImage','abstract']
 }
 </script>
 <style>
@@ -45,10 +44,10 @@ export default {
 .my-text{
   color:#666;
 }
-h3{
+h2{
   color:black;
 }
-h3:hover{
+h2:hover{
   color:#666;
 }
 a,

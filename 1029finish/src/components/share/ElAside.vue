@@ -14,7 +14,11 @@
         </a>
       </el-col>
     </el-row>
-
+    <div class="my-sign">
+      <i class="el-icon-message"> 879636706@qq.com</i><br/>
+      <i class="el-icon-location"> 浙江·绍兴</i>
+      <!--<i class="el-icon-success"></i>-->
+    </div>
   </el-aside>
 </template>
 
@@ -24,7 +28,6 @@ import toggle from './Toggle'
 export default {
   data() {
     return {
-      show: "",
       data: "",
       category: []
     }
@@ -63,6 +66,11 @@ export default {
   &:last-child {
     margin-bottom: 0;
   }
+}
+.my-sign{
+  bottom:100px;
+  line-height: 2em;
+  font-size:0.75em;
 }
 .my-category {
   border-radius: 15px;

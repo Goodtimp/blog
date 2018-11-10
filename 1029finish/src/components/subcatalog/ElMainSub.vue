@@ -1,7 +1,7 @@
 <template>
   <el-main class="sub-main">
     <v-header :headline="categoryHeader.headline" :introduction="categoryHeader.introduction" :imgpath="categoryHeader.imgpath"></v-header>
-    <v-cart-article style="margin:20px;" v-for="art in articles" :key="art.Id" :id="art.Id" :cartImage="art.BackgroundPath" :title="art.ArticleName"></v-cart-article>
+    <v-cart-article style="margin:20px;" v-for="art in articles" :key="art.Id" :id="art.Id" :cartImage="art.BackgroundPath" :title="art.ArticleName" :abstract="art.ArticleSuggests"></v-cart-article>
   <!--{{temp}}-->
     
   </el-main>
@@ -22,7 +22,7 @@ export default {
         bgImgPath: '',
         headline: '',
         introduction: '',
-        imgpath: '',
+        imgpath: ''
       }
     }
   },

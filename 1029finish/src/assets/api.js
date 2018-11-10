@@ -1,8 +1,8 @@
 /* jshint esversion: 6 */
 
 import Axios from 'axios';
-const RequestApi = "http://127.0.0.1:8000/api/";
-const Root = "http://127.0.0.1:8000/";
+const RequestApi = "http://47.107.80.19:80/api/";
+const Root = "http://47.107.80.19:80/";
 
 // 获取请求连接
 function getRequestUrl (str) {
@@ -92,12 +92,17 @@ function getArticleContentById (id) {
   let url = getRequestUrl("id?id=" + id);
   return new Promise((resolve, reject) => {
     getToApi(url).then(res => {
-      let data = getResponceData(res);
-      let con = data.Content[0].fields;
-      con.ContentId = data.Content[0].pk;
-      let art = data.Article[0].fields;
-      art.Id = data.Article[0].pk;
-      data = Object.assign(art, con);
+      let data;
+      try {
+        data = getResponceData(res);
+        let con = data.Content[0].fields;
+        con.ContentId = data.Content[0].pk;
+        let art = data.Article[0].fields;
+        art.Id = data.Article[0].pk;
+        data = Object.assign(art, con);
+      } catch (err) {
+        data = null;
+      }
       resolve(data);
     });
   });

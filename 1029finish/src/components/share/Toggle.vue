@@ -1,19 +1,19 @@
 <template>
-  <div :class="this.show?'my-toggle-left':'my-toggle-right'" @click="clickToggle">
-    <i :class="this.show?'el-icon-arrow-left':'el-icon-arrow-right'"></i>
+  <div :class="this.show1?'my-toggle-left':'my-toggle-right'" @click="clickToggle">
+    <i :class="this.show1?'el-icon-arrow-left':'el-icon-arrow-right'"></i>
   </div>
 </template>
 <script>
 export default {
   data() {
-    return {
-      show: true,
+    return{
+      show1:this.show
     }
   },
   methods: {
     clickToggle: function () {
-      this.show = !this.show;
-      this.$emit('child-msg', this.show)
+      this.show1 = !this.show1;
+      this.$emit('child-msg', this.show1)
     }
   },
   /*像父元素传递数据

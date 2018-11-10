@@ -2,19 +2,20 @@
    <el-main style="padding:0px;">
      <v-header :title="myheader.title" :time="myheader.postedtime" :urlpath="myheader.urlpath"></v-header>
      <div v-html="content" class="my-content"></div>
-    
+      <v-page></v-page>
    </el-main>
 </template>
 <script>
 import head from "./Header"
 import api from "../../assets/api.js"
+import page from "./PageTurning"
 export default {
   data(){
     return{
       ta: "",
       articleid: "",
       myheader: [],
-      content: ""
+      content:"",
     }
   },
    methods: {
@@ -37,9 +38,9 @@ export default {
     this.GetDetialMessage();
   },
   components:{
-    "v-header":head
+    "v-header":head,
+    "v-page":page,
   },
-  props:['content']
 }
 </script>
 <style>
