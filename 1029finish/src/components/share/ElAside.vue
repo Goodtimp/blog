@@ -43,6 +43,7 @@ export default {
     },
     ToggleShow(val) {
       $("#left-aside").css('width', val ? '27%' : '0');
+    $("#left-aside .my-sign").css('position',val?'absolute':'relative')
     }
   },
   mounted() {
@@ -68,7 +69,9 @@ export default {
   }
 }
 .my-sign{
-  bottom:100px;
+  position: absolute;
+  top:90%;
+  left:7%;
   line-height: 2em;
   font-size:0.75em;
 }
