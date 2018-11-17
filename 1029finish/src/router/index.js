@@ -8,7 +8,6 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  // base: '/yiTownWebApp/',
   routes: [{
     path: '/',
     name: 'Index',

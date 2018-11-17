@@ -52,7 +52,7 @@ function getAllCategory () {
   });
 }
 
-// 得到分类信息通过id
+// 通过id得到分类信息
 function getCategoryById (id) {
   let url = getRequestUrl("cid?id=" + id);
   return new Promise((resolve, reject) => {
@@ -71,7 +71,7 @@ function getSameArticleByCId (id) {
     getToApi(url).then(res => {
       let data = getResponceData(res);
       let list = [];
-      for (var i = 0; i < data.Articles.length; i++) {
+      for (var i = data.Articles.length - 1; i >= 0; i--) {
         let line = data.Articles[i].fields;
         line.Id = data.Articles[i].pk;
         list.push(line);

@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: './', // 打包用./
+    assetsPublicPath: '/', // 打包用./
     proxyTable: {
       '/api': 'http://127.0.0.1:8000'
     },
@@ -52,7 +52,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '../../',
+    assetsPublicPath: '../../', // 修改这里
 
     /**
      * Source Maps

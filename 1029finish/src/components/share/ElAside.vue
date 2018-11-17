@@ -16,7 +16,8 @@
     </el-row>
     <div class="my-sign">
       <i class="el-icon-message"> 879636706@qq.com</i><br/>
-      <i class="el-icon-location"> 浙江·绍兴</i>
+      <i class="el-icon-location"> 浙江·绍兴</i><br/>
+      <i class="el-icon-star-on"><a href="http://www.iimt.me/"> 友链：iimt</a></i>
       <!--<i class="el-icon-success"></i>-->
     </div>
   </el-aside>
@@ -71,9 +72,10 @@ export default {
 .my-sign{
   position: absolute;
   top:90%;
-  left:7%;
   line-height: 2em;
+  width:27%;
   font-size:0.75em;
+  line-height:1.45em;
 }
 .my-category {
   border-radius: 15px;
