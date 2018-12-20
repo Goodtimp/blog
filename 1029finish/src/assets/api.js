@@ -1,8 +1,18 @@
 /* jshint esversion: 6 */
 
 import Axios from 'axios';
-const RequestApi = "http://47.107.80.19:80/api/";
-const Root = "http://47.107.80.19:80/";
+var qs = require('qs');
+const RequestApi = "http://47.107.80.19/api/";
+const Root = "http://47.107.80.19";
+const Upload_Root = "/static/upload/";
+const HeaderPath = [
+  { name: "rabbit", path: "/static/images/CommentHeader/rabbit.jpg" },
+  { name: "bear", path: "/static/images/CommentHeader/bear.jpg" },
+  { name: "smile", path: "/static/images/CommentHeader/smile.jpg" },
+  { name: "girl", path: "/static/images/CommentHeader/girl.jpg" },
+  { name: "rhizomys", path: "/static/images/CommentHeader/rhizomys.jpg" },
+  { name: "duck", path: "/static/images/CommentHeader/duck.jpg" }
+];
 
 // 获取请求连接
 function getRequestUrl (str) {
@@ -16,11 +26,11 @@ function getToApi (url) {
 }
 
 // 以pos方法请求api
-function postToApi (url) {
-  Axios.post(url).then(res => {
-    return res;
-  }).catch(res => {
-    return res;
+function postToApi (url, data) {
+  return Axios.post(url, qs.stringify(data), {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }
   });
 }
 
@@ -31,6 +41,24 @@ function getResponceData (res) {
   } catch (err) {
     return res;
   }
+}
+// 修改图片地址，应对上传图片无Upload_Root
+function changeImagePath (image) {
+  if (image.indexOf("static") === -1) {
+    image = Upload_Root + image;
+  }
+  return image;
+}
+
+// 修改时间格式
+function changeTimeFormat (time) {
+  if (time.indexOf("T") > -1) {
+    time = time.replace("T", " ");
+  }
+  if (time.indexOf(".") > 0) {
+    time = time.substr(0, 19);
+  }
+  return time;
 }
 
 // 得到所有的分类信息
@@ -59,7 +87,10 @@ function getCategoryById (id) {
     getToApi(url).then(res => {
       let data = getResponceData(res);
       data.category[0].fields.Id = data.category[0].pk;
-      resolve(data.category[0].fields);
+      data = data.category[0].fields;
+      data.BackgroundPath = changeImagePath(data.BackgroundPath);
+      data.CategoryLog = changeImagePath(data.CategoryLog);
+      resolve(data);
     });
   });
 }
@@ -74,6 +105,7 @@ function getSameArticleByCId (id) {
       for (var i = data.Articles.length - 1; i >= 0; i--) {
         let line = data.Articles[i].fields;
         line.Id = data.Articles[i].pk;
+        line.BackgroundPath = changeImagePath(line.BackgroundPath);
         list.push(line);
       }
       resolve(list);
@@ -95,15 +127,89 @@ function getArticleContentById (id) {
       let data;
       try {
         data = getResponceData(res);
-        let con = data.Content[0].fields;
+        let con = data.Content[0].fields; // 获取文章内容
         con.ContentId = data.Content[0].pk;
-        let art = data.Article[0].fields;
+        let art = data.Article[0].fields; // 获取文章信息
+        art.PostedTime = changeTimeFormat(art.PostedTime);
         art.Id = data.Article[0].pk;
+        // art.like = data.like;
+        art.BackgroundPath = changeImagePath(art.BackgroundPath);
+
         data = Object.assign(art, con);
       } catch (err) {
         data = null;
       }
       resolve(data);
+    });
+  });
+}
+
+//    getToApi(url).then(res => {
+
+function AddLikeNum (articlid) {
+  let url = getRequestUrl("like");
+  return new Promise((resolve, reject) => {
+    postToApi(url, {
+      id: articlid
+    }).then(res => {
+      resolve(res);
+    }).catch(res => {
+      resolve(res);
+    });
+  });
+}
+
+/**
+ * 添加评论 参数为键值对 包括{Content,ArticleId,UserName,UserEmail,UserHeader}
+ * @param {评论} comment
+ */
+function AddComment (comment) {
+  let url = getRequestUrl("comment");
+  return new Promise((resolve, reject) => {
+    postToApi(url, comment).then(res => {
+      resolve(res);
+    }).catch(res => {
+      resolve(res);
+    });
+  });
+}
+
+/**
+ * 获取所有评论信息
+ */
+function GetAllComment (ArticleId) {
+  // 获取文章评论
+  let url = getRequestUrl("getallcom");
+
+  return new Promise((resolve, reject) => {
+    postToApi(url, { id: ArticleId }).then(res => {
+      let data = getResponceData(res);
+      let Comments = [];
+      for (var i = data.Comments.length - 1; i >= 0; i--) {
+        let line = data.Comments[i].fields;
+        line.UserHeader = changeImagePath(line.UserHeader);
+        line.PostedTime = changeTimeFormat(line.PostedTime);
+        line.Id = data.Comments[i].pk;
+        Comments.push(line);
+      }
+      resolve(Comments);
+    }).catch(res => {
+      resolve(res);
+    });
+  });
+}
+
+/**
+ * 某IP是否点赞
+ */
+function GetArticleLike (ArticleId) {
+  let url = getRequestUrl("like");
+  return new Promise((resolve, reject) => {
+    postToApi(url, { id: ArticleId, is: 1 }).then(res => {
+      let data = getResponceData(res);
+      resolve(data);
+    }).catch(res => {
+      resolve(res);
     });
   });
 }
@@ -114,5 +220,13 @@ export default {
   getCategoryById,
   getToApi,
   getArticleContentById,
-  getSameArticleByCId
+  getSameArticleByCId,
+  Upload_Root,
+  Root,
+  changeImagePath,
+  AddLikeNum,
+  AddComment,
+  HeaderPath,
+  GetAllComment,
+  GetArticleLike
 };

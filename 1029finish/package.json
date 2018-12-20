@@ -19,6 +19,8 @@
     "element-ui": "^2.4.8",
     "eslint-plugin-html": "^4.0.6",
     "jquery": "^3.3.1",
+    "mavon-editor": "^2.6.17",
+    "qs": "^6.6.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
@@ -88,7 +90,8 @@
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.9.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.0.0",
     "webpack-merge": "^4.1.0"
   },
   "engines": {

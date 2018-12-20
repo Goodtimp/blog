@@ -23,7 +23,6 @@ export default {
   methods: {
   },
   mounted() {
-
   },
   components: {
     'v-cart': cart,

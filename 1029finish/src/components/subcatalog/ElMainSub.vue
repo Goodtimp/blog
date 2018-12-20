@@ -1,7 +1,7 @@
 <template>
   <el-main class="sub-main">
     <v-header :headline="categoryHeader.headline" :introduction="categoryHeader.introduction" :imgpath="categoryHeader.imgpath"></v-header>
-    <v-cart-article style="margin:20px;" v-for="art in articles" :key="art.Id" :id="art.Id" :cartImage="art.BackgroundPath" :title="art.ArticleName" :abstract="art.ArticleSuggests"></v-cart-article>
+    <v-cart-article style="margin:20px;" v-for="art in articles" :key="art.Id" :Likenum="art.Likenum" :id="art.Id" :hits="art.Hits" :cartImage="art.BackgroundPath" :title="art.ArticleName" :abstract="art.ArticleSuggests"></v-cart-article>
     <!--{{temp}}-->
 
   </el-main>
@@ -22,7 +22,7 @@ export default {
         bgImgPath: '',
         headline: '',
         introduction: '',
-        imgpath: ''
+        imgpath: '',
       }
     }
   },
@@ -33,14 +33,14 @@ export default {
     GetHeaderMessage() {
       if (this.categoryHeader.id != 0) {
         api.getCategoryById(this.categoryHeader.id).then(data => {
-          this.categoryHeader.bgImgPath = data.BackgroundPath;
+          this.categoryHeader.bgImgPath = api.changeImagePath(data.BackgroundPath);
           this.categoryHeader.headline = data.CategoryName;
           this.categoryHeader.introduction = data.Intor;
-          this.categoryHeader.imgpath = data.CategoryLog;
+          this.categoryHeader.imgpath = api.changeImagePath(data.CategoryLog);
         });
       }
       else{
-               this.categoryHeader.headline = "ALL";
+          this.categoryHeader.headline = "ALL";
       }
     },//下面需要添加cart内容  根据cart内容实现点击跳转相应article页面
     GetArticle() {
