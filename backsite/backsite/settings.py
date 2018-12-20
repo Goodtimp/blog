@@ -94,9 +94,9 @@ WSGI_APPLICATION = "backsite.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "722blog",
-        "USER": "722",
-        "PASSWORD": "mni722",
+        "NAME": "",
+        "USER": "",
+        "PASSWORD": "",
         "HOST": "127.0.0.1",
         "PORT": "3306",
         "client_encoding": "UTF8",
