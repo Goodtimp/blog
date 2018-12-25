@@ -3,9 +3,15 @@ from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from django.core import serializers
 from django.http import JsonResponse
+from backsite.settings import MEDIA_ROOT
+from backsite.settings import MEDIA_URL
+from tools.speechdraft import kekenet
+from tools import commen 
 import json
+from datetime import datetime
 from . import models
 import random
+import os
 # this is markdown
 import markdown
 # 通过分类id得到分类  id空获得所有
@@ -84,11 +90,11 @@ def GetArticleContentById(request):
         AddHit(id)
         ip = get_ip(request)
         Content = models.AritcleDatils.objects.filter(ArticleId_id=int(id))
-       
+
         Article = models.Article.objects.filter(Id=int(id))
         Content = json.loads(serializers.serialize("json", Content))
         # this is markdown  vue前台使用解码 这里不需要解码
-        
+
         # con=Content[0]['fields']['Content']
         # if con[0:3] != "<br":
         #     Content[0]['fields']['Content'] = markdown.markdown(con.replace("\r\n", '  \n'), extensions=[
@@ -96,7 +102,7 @@ def GetArticleContentById(request):
         #         'markdown.extensions.codehilite',
         #         'markdown.extensions.toc',
         #     ], safe_mode=True, enable_attributes=False)
-        
+
         # end
 
         Article = json.loads(serializers.serialize("json", Article))
@@ -157,7 +163,7 @@ def AddLikeNum(request):
         ip = get_ip(request)
         response["ip"] = ip
 
-        if (models.UserBehavior.objects.filter(ArticleId_id=int(id), UserAgent=agent, IP=ip).count() == 0) :
+        if (models.UserBehavior.objects.filter(ArticleId_id=int(id), UserAgent=agent, IP=ip).count() == 0):
             if judge == 0:  # 判断是否为获取点赞信息而不是增加点赞
                 Article = models.Article.objects.get(
                     Id=int(id))  # madmin 数据库问题 导致无法使用触发器。
@@ -195,15 +201,15 @@ def AddComment(request):
         header = request.POST.get("UserHeader")
         if header == "null":
             header = random.sample(HeaderPath, 1)[0]
-        
-        comment=models.Comment( ArticleId_id=int(id),
-            UserName=request.POST.get("UserName"),
-            PersonalBlog=request.POST.get("PersonalBlog"),
-            Content=request.POST.get("Content"),
-            UserEmail=request.POST.get("UserEmail"),
-            UserHeader=header)
+
+        comment = models.Comment(ArticleId_id=int(id),
+                                 UserName=request.POST.get("UserName"),
+                                 PersonalBlog=request.POST.get("PersonalBlog"),
+                                 Content=request.POST.get("Content"),
+                                 UserEmail=request.POST.get("UserEmail"),
+                                 UserHeader=header)
         comment.save()
-        
+
         # models.Comment.objects.create(
         #     ArticleId_id=int(id),
         #     UserName=request.POST.get("UserName"),
@@ -218,5 +224,49 @@ def AddComment(request):
     except Exception as e:
         response['msg'] = str(e)
         response['error_num'] = 1
+        response["return"] = 0
+    return JsonResponse(response)
+
+
+
+@require_http_methods(["POST"])
+def upload(request):
+    response = {}
+    try:
+        if request.method == 'POST':
+            file_obj = request.FILES.get('userfile')
+
+            name = commen.getRandomName()+"."+file_obj.name.split(".")[-1]
+            path = os.path.join(MEDIA_ROOT, 'userUpload/', name)
+            f = open(path, 'wb')
+
+            for chunk in file_obj.chunks():
+                f.write(chunk)
+            f.close()
+            response["imgpath"] = os.path.join(MEDIA_URL, 'userUpload/', name)
+            response["return"] = 1
+    except:
+        response["return"] = 0
+    return JsonResponse(response)
+
+
+@require_http_methods(["POST"])
+def pyrequest(request):
+    response = {}
+    try:
+        if request.method == 'POST':
+            mode = request.POST.get('mode')
+            
+            if int(mode) == 1:
+                speech_url = request.POST.get('url')
+                speech_url = speech_url.replace("//m.","//www.")
+                result = kekenet.start_one(speech_url)
+                re=commen.write_text(result[1],result[0],'speechTxt/')
+                response['url']=re[2]
+                response['content']=result[1].replace('\n', '\r\n')
+                response['name']=re[0]
+                
+            response["return"] = 1
+    except:
         response["return"] = 0
     return JsonResponse(response)

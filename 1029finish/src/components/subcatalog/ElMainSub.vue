@@ -1,7 +1,7 @@
 <template>
   <el-main class="sub-main">
-    <v-header :headline="categoryHeader.headline" :introduction="categoryHeader.introduction" :imgpath="categoryHeader.imgpath"></v-header>
-    <v-cart-article style="margin:20px;" v-for="art in articles" :key="art.Id" :Likenum="art.Likenum" :id="art.Id" :hits="art.Hits" :cartImage="art.BackgroundPath" :title="art.ArticleName" :abstract="art.ArticleSuggests"></v-cart-article>
+    <v-header  :headline="categoryHeader.headline" :introduction="categoryHeader.introduction" :imgpath="categoryHeader.imgpath"></v-header>
+    <v-cart-article style="margin:20px;" v-for="art in articles" :key="art.Id" :PostedTime="art.PostedTime" :Likenum="art.Likenum" :id="art.Id" :hits="art.Hits" :cartImage="art.BackgroundPath" :title="art.ArticleName" :abstract="art.ArticleSuggests"></v-cart-article>
     <!--{{temp}}-->
 
   </el-main>

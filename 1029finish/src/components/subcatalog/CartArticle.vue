@@ -9,6 +9,7 @@
         class="grid-content bg-purple"
         style="position: relative;"
       >
+        <span class="badge"><i style="color:#fff;" :class="headermsg"></i></span>
         <h5 style="position: absolute;bottom: 5%;right: 2%;">
           <i
             class="el-icon-circle-check"
@@ -43,10 +44,12 @@
 import api from "../../assets/api.js"
 import common from '../../assets/common.js'
 export default {
+  props: ['title','PostedTime', 'id', 'cartImage', 'abstract', 'Hits', 'Likenum'],
   data() {
     return {
-      myWidth: ( document.body.clientWidth),
-      timer: false
+      myWidth: (document.body.clientWidth),
+      timer: false,
+      headermsg:""
     }
   },
   methods: {
@@ -76,18 +79,26 @@ export default {
         height_intor = height_intor - (height_intor % 23);//对最后一行进行处理，一行的固定高度为23px
         father.find("p").css({ "height": (height_intor + "px") });
       })
+    },
+    /**
+     * 头部推荐文字
+     */
+    HeaderMassage(){
+      if(this.Hits>300) this.headermsg="el-icon-star-off badgeshow";
+      if((this.Hits>100&&this.Likenum>10)) this.headermsg="el-icon-star-on badgeshow";
+      if(this.common.getDifferMonths(this.PostedTime)<1) this.headermsg="el-icon-news badgeshow";
     }
   },
   mounted() {
-    window.onresize = () => {
+    window.onresize = () => {//窗口大小修改后
       return (() => {
         this.myWidth = document.body.clientWidth;
         this.changeCartIntor();
       })()
     },
-      this.getCartHeight()
-  },
-  props: ['title', 'id', 'cartImage', 'abstract', 'Hits', 'Likenum']
+    this.getCartHeight(),
+    this.HeaderMassage()
+  }
 }
 </script>
 <style>
@@ -121,5 +132,23 @@ a:hover,
 a:active {
   text-decoration: none;
   color: inherit;
+}
+.badge {
+  position: absolute;
+  display: inline-block;
+  min-width: 10px;
+  /* padding: 3px 7px; 修改为内部元素的margin，防止不需要显示时有多余背景*/
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: #67c23a;
+  border-radius: 10px;
+}
+.badgeshow{
+  margin: 3px 7px;
 }
 </style>

@@ -2,9 +2,11 @@
 
 import Axios from 'axios';
 var qs = require('qs');
-const RequestApi = "http://47.107.80.19/api/";
-const Root = "http://47.107.80.19";
-const Upload_Root = "/static/upload/";
+const Root = "http://47.107.80.19/";
+const RequestApi = Root + "api/";
+const UploadRoot = "/static/upload/";
+const UploadFileUrl = RequestApi + "upload/";
+const GetSpeechUrl = RequestApi + "pyrequest/";
 const HeaderPath = [
   { name: "rabbit", path: "/static/images/CommentHeader/rabbit.jpg" },
   { name: "bear", path: "/static/images/CommentHeader/bear.jpg" },
@@ -45,7 +47,7 @@ function getResponceData (res) {
 // 修改图片地址，应对上传图片无Upload_Root
 function changeImagePath (image) {
   if (image.indexOf("static") === -1) {
-    image = Upload_Root + image;
+    image = UploadRoot + image;
   }
   return image;
 }
@@ -214,6 +216,50 @@ function GetArticleLike (ArticleId) {
   });
 }
 
+/**
+ * upload file
+ */
+function UploadFile (formdata) {
+  var options = { // 设置axios的参数
+    url: UploadFileUrl,
+    data: formdata,
+    method: 'post',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  };
+  return Axios(options);
+}
+
+/**
+ * get speech
+ */
+function GetSpeech (data) {
+  return new Promise((resolve, reject) => {
+    data.mode = 1;
+    postToApi(GetSpeechUrl, data).then(res => {
+      resolve(getResponceData(res));
+    }).catch(res => {
+      resolve({'return': 0});
+    });
+  });
+}
+
+/** 修改该头信息Content-Disposition 以get请求 */
+function funDownload (content, filename) {
+  var eleLink = document.createElement('a');
+  eleLink.download = filename;
+  eleLink.style.display = 'none';
+  // 字符内容转变成blob地址
+  var blob = new Blob([content]);
+  eleLink.href = URL.createObjectURL(blob);
+  // 触发点击
+  document.body.appendChild(eleLink);
+  eleLink.click();
+  // 然后移除
+  document.body.removeChild(eleLink);
+}
+
 export default {
   getRequestUrl,
   getAllCategory,
@@ -221,12 +267,16 @@ export default {
   getToApi,
   getArticleContentById,
   getSameArticleByCId,
-  Upload_Root,
+  UploadRoot,
   Root,
   changeImagePath,
   AddLikeNum,
   AddComment,
   HeaderPath,
   GetAllComment,
-  GetArticleLike
+  GetArticleLike,
+  UploadFile,
+  UploadFileUrl,
+  GetSpeech,
+  funDownload
 };

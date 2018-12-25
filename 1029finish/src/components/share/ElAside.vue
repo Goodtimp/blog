@@ -36,8 +36,8 @@ export default {
       var aside = $("#left-aside");
       if (common.IsMobile() && this.myWidth < 750) {
         var nowurl = window.location.href;
-        if (!(nowurl.indexOf("subindex/0")>1 || nowurl.indexOf("article")>1)) {
-          window.location.href = api.Root+"/subindex/0";
+        if (!(nowurl.indexOf("subindex")>1 || nowurl.indexOf("article")>1||nowurl.indexOf("tools")>1)) {
+          window.location.href = api.Root+"subindex/0";
         }
         aside.hide();
         $(".my-ElAsideSign").hide();

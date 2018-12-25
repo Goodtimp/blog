@@ -97,7 +97,7 @@ DATABASES = {
         "NAME": "722blog",
         "USER": "722",
         "PASSWORD": "mni722",
-        "HOST": "127.0.0.1",
+        "HOST": "47.107.80.19",
         "PORT": "3306",
         "client_encoding": "UTF8",
     }
