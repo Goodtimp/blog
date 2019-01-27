@@ -31,13 +31,17 @@ export default {
       this.categoryHeader.id = this.$route.params.id;
     },
     GetHeaderMessage() {
-      if (this.categoryHeader.id != 0) {
+      if (this.categoryHeader.id > 0) {
         api.getCategoryById(this.categoryHeader.id).then(data => {
           this.categoryHeader.bgImgPath = api.changeImagePath(data.BackgroundPath);
           this.categoryHeader.headline = data.CategoryName;
           this.categoryHeader.introduction = data.Intor;
           this.categoryHeader.imgpath = api.changeImagePath(data.CategoryLog);
         });
+      }
+      else if (this.categoryHeader.id == -1)
+      {
+        this.categoryHeader.headline = "Hidden";
       }
       else{
           this.categoryHeader.headline = "ALL";

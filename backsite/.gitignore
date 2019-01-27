@@ -1,4 +1,5 @@
-/backsite/settings.py
+./backsite/settings.py
+
 # Editor directories and files
 .idea
 .vscode

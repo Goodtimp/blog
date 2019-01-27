@@ -17,9 +17,9 @@
     <div>
       <el-steps
         :active="1"
-        v-for="(index, item) in data[0]"
-        simple
-      >
+        v-for="(index, item) in data[0]" 
+        :key="index"
+        simple>
         <el-step
           :title="item"
           icon="el-icon-edit"
@@ -54,6 +54,7 @@ export default {
         var temp = this.data;
         Exif.getData(img, function () {
           temp.unshift(Exif.getAllTags(this));
+          this.$message({ message: "成功", type: 'success' });
         });
       }
     }

@@ -2,7 +2,7 @@
 
 import Axios from 'axios';
 var qs = require('qs');
-const Root = "http://47.107.80.19/";
+const Root = "http://127.0.0.1:8000/";
 const RequestApi = Root + "api/";
 const UploadRoot = "/static/upload/";
 const UploadFileUrl = RequestApi + "upload/";
@@ -13,7 +13,9 @@ const HeaderPath = [
   { name: "smile", path: "/static/images/CommentHeader/smile.jpg" },
   { name: "girl", path: "/static/images/CommentHeader/girl.jpg" },
   { name: "rhizomys", path: "/static/images/CommentHeader/rhizomys.jpg" },
-  { name: "duck", path: "/static/images/CommentHeader/duck.jpg" }
+  { name: "duck", path: "/static/images/CommentHeader/duck.jpg" },
+  {name: "xiaohuangren", path: "/static/images/CommentHeader/xiaohuangren.jpg"}
+
 ];
 
 // 获取请求连接

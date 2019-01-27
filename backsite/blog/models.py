@@ -43,6 +43,7 @@ class Article(models.Model):
         default=datetime.now, verbose_name="发表时间")
     Hits = models.IntegerField(verbose_name="点击数", default=1)
     Likenum = models.IntegerField(verbose_name="点赞数", default=0)
+    Hidden = models.BooleanField(verbose_name="是否隐藏",default=False)
     Id = models.AutoField(primary_key=True, verbose_name="文章ID")
 
     class Meta:

@@ -33,10 +33,15 @@ def get_text_by_url(url):
     soup = BeautifulSoup(re, 'html5lib')
     name = soup.find("title").text[0:-12]
     text = soup.find(attrs={'class': 'info-qh'}).text
-    return (name,text)
+    return (name,text,get_mp3_url(url.replace("Article","mp3").replace("article","mp3")))
     #write_text(text, name)
     #print(name + " is ok!")
 
+def get_mp3_url(url):
+    re = requests.get(url, verify=False).content
+    soup = BeautifulSoup(re, 'html5lib')
+    href = soup.find(attrs={'height': '34'}).find("a").get("href")
+    return href
 
 def start(root_url):
     try:
@@ -63,5 +68,6 @@ def start_one(root_url):
      if list_name[j][0:-5] == list_name[j + 1][0:-5]:
          list_name[j] = list_name[j + 1]  # 相同的文件名相同'''  # 可用但篇幅太长废除
 
-#start_one('http://www.kekenet.com/Article/201812/572859.shtml')
+
+#print(start_one('http://www.kekenet.com/Article/201812/572859.shtml'))
 #print(start('http://www.kekenet.com/Article/15539/'))

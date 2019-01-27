@@ -10,7 +10,9 @@
         style="position: relative;"
       >
         <span class="badge"><i style="color:#fff;" :class="headermsg"></i></span>
-        <h5 style="position: absolute;bottom: 5%;right: 2%;">
+        <h5 style="position: absolute;bottom: 5%;right: 2%;    background-color: rgba(100,100,105,0.2);
+    padding: 1px 3px;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.66);">
           <i
             class="el-icon-circle-check"
             style="color:#fff;"

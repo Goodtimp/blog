@@ -22,7 +22,7 @@ def GetCategoryById(request):
     response = {}
     try:
         id = request.GET.get("id")
-        if id == 0 or id == "0":
+        if id == 0 or id == "0" or id == -1:
             category = models.Category.objects.all()
         else:
             category = models.Category.objects.filter(Id=int(id))
@@ -43,11 +43,13 @@ def GetCategoryById(request):
 def GetSameArticleByCId(request):
     response = {}
     try:
-        id = request.GET.get("id")
-        if id == 0 or id == "0":
-            Articles = models.Article.objects.all()
+        id = int(request.GET.get("id"))
+        if int(id) == -1:
+            Articles = models.Article.objects.filter(Hidden=True)
+        elif id == 0 or id == "0":
+            Articles = models.Article.objects.filter(Hidden=False)
         else:
-            Articles = models.Article.objects.filter(CategoryId=int(id))
+            Articles = models.Article.objects.filter(CategoryId=id,Hidden=False)
         response['Articles'] = json.loads(
             serializers.serialize("json", Articles))
         response['msg'] = 'success'
@@ -263,7 +265,8 @@ def pyrequest(request):
                 result = kekenet.start_one(speech_url)
                 re=commen.write_text(result[1],result[0],'speechTxt/')
                 response['url']=re[2]
-                response['content']=result[1].replace('\n', '\r\n')
+                response['content']=result[1].replace('\n', 'huanhang')#约定*huan为 换行
+                response['mp3url']=result[2]
                 response['name']=re[0]
                 
             response["return"] = 1

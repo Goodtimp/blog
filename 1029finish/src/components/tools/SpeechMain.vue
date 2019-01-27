@@ -24,8 +24,20 @@
       v-on:click="getSpeech"
     >获取该篇</el-button>
 
-    <div>
+    <div style="clear: both">
     </div>
+<el-row :gutter="12">
+  
+  <el-col :offset="2" :span="20">
+    <el-card shadow="hover">
+      <div id="SpeechResult">
+
+    </div>
+    </el-card>
+  </el-col>
+  
+</el-row>
+    
   </el-main>
 </template>
 <script>
@@ -42,30 +54,36 @@ export default {
     }
   },
   methods: {
+    handleReslut(res) {
+      if (res["return"] != 0) {
+        if (this.common.IsMobile()) {//手机跳转页面
+          window.location.href = this.api.Root + res['url'].substr(1);
+        }
+        else if ('download' in document.createElement('a')) {
+          // 作为test.html文件下载
+          this.api.funDownload(res["content"], res['name']);
+        } else {
+          eleButton.onclick = function () {
+            this.$message({ message: '浏览器不支持', type: 'warning' });
+          };
+        }
+      }
+      else {
+        this.$message({ message: "请求错误，请确认链接地址是否正确", type: 'warning' });
+      }
+    },
     getSpeech() {
       if (this.form.url == "") {
         this.$message({ message: '你还没添加链接呢！', type: 'warning' });
       }
       else {
         this.api.GetSpeech({ url: this.form.url }).then(res => {
-          if (res["return"] != 0) {
-            if (this.common.IsMobile()) {
-              window.location.href = this.api.Root + res['url'].substr(1);
-            }
-            else if ('download' in document.createElement('a')) {
-              // 作为test.html文件下载
-              this.api.funDownload(res["content"], res['name']);
-            } else {
-              eleButton.onclick = function () {
-                this.$message({ message: '浏览器不支持', type: 'warning' });
-              };
-            }
-          }
-          else {
-             this.$message({ message: "请求错误，请确认链接地址是否正确", type: 'warning' });
-          }
-        }).catch(res=>{
-          this.$message({ message: "ERROR！", type: 'Error' });
+          var key = 'huanhang';
+          var content = res["content"].replace(new RegExp(key, 'g'), '<br/><br/>');
+          $("#SpeechResult").html(content);
+          this.$message({ message: "成功", type: 'success' });
+         }).catch(res => {
+          this.$message({ message: "输入格式不正确", type: 'Error' });
         })
       }
     }
@@ -77,5 +95,8 @@ export default {
 }
 </script>
 <style>
+#SpeechResult{
+  text-align: left;
+}
 </style>
 
