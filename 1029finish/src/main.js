@@ -12,6 +12,8 @@ import api from './assets/api.js';
 import mavonEditor from 'mavon-editor';
 import common from './assets/common.js';
 import 'mavon-editor/dist/css/index.css';
+// 引入自定义icon
+import "./assets/icon/iconfont.css";
 // use
 Vue.use(mavonEditor);
 Vue.prototype.$axios = Axios;

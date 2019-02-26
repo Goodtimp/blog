@@ -1,7 +1,7 @@
 <template>
   <el-container class="el-carousel" style="height:100%">
     <el-aside :show="false"></el-aside>
-    <el-main></el-main>
+    <el-main style="height:100%"></el-main>
    
   </el-container>
 </template>

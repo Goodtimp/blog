@@ -4,7 +4,6 @@ from datetime import datetime
 from DjangoUeditor.models import UEditorField
 from backsite.settings import MEDIA_URL
 # 类别表
-
 # this is markdown
 from mdeditor.fields import MDTextField #必须导入
 
@@ -35,16 +34,20 @@ class Article(models.Model):
     )  # 练级删除，主表数据删除时从表数据也删除
     ArticleName = models.CharField(max_length=300, verbose_name="文章名")
     BackgroundPath = models.ImageField(
-        upload_to="images/article_img", null=True, verbose_name="文章背景地址", max_length=255)
-   # BackgroundPath = models.CharField(max_length=50, verbose_name="文章背景地址")
+       upload_to=r"images/article_img/%Y/%m%d", null=True, verbose_name="文章背景地址", max_length=255)
+  
     ArticleSuggests = models.CharField(
-        max_length=300, null=True, verbose_name="文章详情")
+        max_length=300, null=True, verbose_name="引言描述")
     PostedTime = models.DateTimeField(
         default=datetime.now, verbose_name="发表时间")
     Hits = models.IntegerField(verbose_name="点击数", default=1)
     Likenum = models.IntegerField(verbose_name="点赞数", default=0)
     Hidden = models.BooleanField(verbose_name="是否隐藏",default=False)
     Id = models.AutoField(primary_key=True, verbose_name="文章ID")
+    
+    Content=MDTextField(null=True)
+    LastDataChange = models.DateTimeField(
+        default=datetime.now, verbose_name="最后修改时间")
 
     class Meta:
         verbose_name = "文章"

@@ -41,7 +41,7 @@ from django.urls import path
 # from django.conf.urls.static import static
 # import DjangoUeditor.urls
 # import os
-# this
+# end
 
 from django.conf import settings
 from blog import views as api

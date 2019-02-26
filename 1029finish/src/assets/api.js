@@ -15,7 +15,6 @@ const HeaderPath = [
   { name: "rhizomys", path: "/static/images/CommentHeader/rhizomys.jpg" },
   { name: "duck", path: "/static/images/CommentHeader/duck.jpg" },
   {name: "xiaohuangren", path: "/static/images/CommentHeader/xiaohuangren.jpg"}
-
 ];
 
 // 获取请求连接
@@ -131,15 +130,14 @@ function getArticleContentById (id) {
       let data;
       try {
         data = getResponceData(res);
-        let con = data.Content[0].fields; // 获取文章内容
-        con.ContentId = data.Content[0].pk;
         let art = data.Article[0].fields; // 获取文章信息
         art.PostedTime = changeTimeFormat(art.PostedTime);
         art.Id = data.Article[0].pk;
+        art.LastDataChange = changeTimeFormat(art.LastDataChange);
         // art.like = data.like;
         art.BackgroundPath = changeImagePath(art.BackgroundPath);
 
-        data = Object.assign(art, con);
+        data = Object.assign(art);
       } catch (err) {
         data = null;
       }

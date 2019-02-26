@@ -43,7 +43,7 @@ function changeTimeFormat (time) {
 /** 获取给定时间与当前时间的间隔月份 */
 function getDifferMonths (time) {
   var myDate = new Date();
-  var nowMonths = Number(myDate.getMonth() + 1 + myDate.getFullYear() * 12);// getMonth中为0-11月
+  var nowMonths = Number(myDate.getMonth() + 1 + myDate.getFullYear() * 12); // getMonth中为0-11月
 
   time = changeTimeFormat(time);
   var timeMonths = Number(time.substr(0, 4)) * 12 + Number(time.substr(5, 2));

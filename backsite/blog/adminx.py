@@ -26,16 +26,10 @@ class CategoryAdmin(object):
 
 class ArticleAdmin(object):
   #后台展示字段
-  list_display=['CategoryId','ArticleName','Hidden','BackgroundPath','ArticleSuggests','PostedTime','Hits','Likenum','Id']
+  list_display=['CategoryId','ArticleName','Hidden','BackgroundPath','ArticleSuggests','PostedTime','Hits','Likenum','LastDataChange','Id']
   search_fields=['Id','CategoryId','ArticleName','Hidden']
   list_editable=['ArticleName','BackgroundPath','Hidden','ArticleSuggests']
 
-class AritcleDatilsAdmin(object):
-  #后台展示字段
-  list_display=['ArticleId','LastDataChange','Content']
-  search_fields=['ArticleId']
-  list_editable=['Content']
-  style_fields={'Content':'ueditor'}
 
 class CommentAdmin(object):
   #后台展示字段
@@ -51,6 +45,5 @@ xadmin.site.register(views.CommAdminView, GlobalSettings)
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(models.Category,CategoryAdmin)
 xadmin.site.register(models.Article,ArticleAdmin)
-xadmin.site.register(models.AritcleDatils,AritcleDatilsAdmin)
 xadmin.site.register(models.Comment,CommentAdmin)
 xadmin.site.register(models.UserBehavior,UserBehaviorAdmin)

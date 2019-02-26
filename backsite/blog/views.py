@@ -44,9 +44,9 @@ def GetSameArticleByCId(request):
     response = {}
     try:
         id = int(request.GET.get("id"))
-        if int(id) == -1:
+        if id == -1:
             Articles = models.Article.objects.filter(Hidden=True)
-        elif id == 0 or id == "0":
+        elif id == 0:
             Articles = models.Article.objects.filter(Hidden=False)
         else:
             Articles = models.Article.objects.filter(CategoryId=id,Hidden=False)
@@ -68,9 +68,9 @@ def GetArticleById(request):
     try:
         id = request.GET.get("id")
         if id == 0 or id == "0":
-            Article = models.Article.objects.all()
+            Article = models.Article.objects.all().values('CategoryId','ArticleName','Hidden','BackgroundPath','ArticleSuggests','PostedTime','Hits','Likenum','Id')
         else:
-            Article = models.Article.objects.filter(Id=int(id))
+            Article = models.Article.objects.filter(Id=int(id)).values('CategoryId','ArticleName','Hidden','BackgroundPath','ArticleSuggests','PostedTime','Hits','Likenum','Id')
 
         response['Article'] = json.loads(
             serializers.serialize("json", Article))
@@ -90,13 +90,11 @@ def GetArticleContentById(request):
     try:
         id = request.GET.get("id", 0)
         AddHit(id)
-        ip = get_ip(request)
-        Content = models.AritcleDatils.objects.filter(ArticleId_id=int(id))
 
         Article = models.Article.objects.filter(Id=int(id))
-        Content = json.loads(serializers.serialize("json", Content))
+        # Content = models.AritcleDatils.objects.filter(ArticleId_id=int(id))
+        # Content = json.loads(serializers.serialize("json", Content)) # 已修改
         # this is markdown  vue前台使用解码 这里不需要解码
-
         # con=Content[0]['fields']['Content']
         # if con[0:3] != "<br":
         #     Content[0]['fields']['Content'] = markdown.markdown(con.replace("\r\n", '  \n'), extensions=[
@@ -104,12 +102,11 @@ def GetArticleContentById(request):
         #         'markdown.extensions.codehilite',
         #         'markdown.extensions.toc',
         #     ], safe_mode=True, enable_attributes=False)
-
         # end
 
         Article = json.loads(serializers.serialize("json", Article))
         response['Article'] = Article
-        response['Content'] = Content
+        #response['Content'] = Content
 
         response['msg'] = 'success'
         response['error_num'] = 0
