@@ -2,7 +2,7 @@
 
 import Axios from 'axios';
 var qs = require('qs');
-const Root = "http://127.0.0.1:8000/";
+const Root = "http://47.107.80.19/";
 const RequestApi = Root + "api/";
 const UploadRoot = "/static/upload/";
 const UploadFileUrl = RequestApi + "upload/";
@@ -105,7 +105,28 @@ function getSameArticleByCId (id) {
     getToApi(url).then(res => {
       let data = getResponceData(res);
       let list = [];
-      for (var i = data.Articles.length - 1; i >= 0; i--) {
+      for (var i = 0; i < data.Articles.length; i++) {
+        let line = data.Articles[i].fields;
+        line.Id = data.Articles[i].pk;
+        line.BackgroundPath = changeImagePath(line.BackgroundPath);
+        list.push(line);
+      }
+      resolve(list);
+    });
+  });
+}
+
+// 得到相同分类的文章概略 通过cid
+function getSameArticleByCIdPage (id, page) {
+  let url = getRequestUrl("acidp");
+  return new Promise((resolve, reject) => {
+    postToApi(url, {
+      id: id,
+      page: page
+    }).then(res => {
+      let data = getResponceData(res);
+      let list = [];
+      for (var i = 0; i < data.Articles.length; i++) {
         let line = data.Articles[i].fields;
         line.Id = data.Articles[i].pk;
         line.BackgroundPath = changeImagePath(line.BackgroundPath);
@@ -278,5 +299,6 @@ export default {
   UploadFile,
   UploadFileUrl,
   GetSpeech,
-  funDownload
+  funDownload,
+  getSameArticleByCIdPage
 };

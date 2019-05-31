@@ -31,7 +31,8 @@ export default new Router({
   {
     path: '/',
     name: 'Index',
-    component: (resolve) => require(['@/components/index'], resolve)
+    // component: (resolve) => require(['@/components/index'], resolve)
+    redirect: '/subindex/0'
   }
   ]
 });

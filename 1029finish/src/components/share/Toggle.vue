@@ -14,6 +14,9 @@ export default {
     clickToggle: function () {
       this.show1 = !this.show1;
       this.$emit('child-msg', this.show1)
+    },
+    hideenButton(){
+      this.show1=0;
     }
   },
   /*像父元素传递数据
@@ -32,7 +35,7 @@ export default {
 <style>
 .my-toggle-left {
   position: absolute;
-  left: 25%;
+  left: 19%;
   height: 100%;
   z-index: 100;
     cursor: pointer;
@@ -49,6 +52,7 @@ export default {
 i {
   position: relative;
   top: 45%;
+  z-index:150;
   color: #999;
 }
 .my-toggle-right:hover i {

@@ -36,7 +36,7 @@ def GetCategoryById(request):
         response['error_num'] = 1
     return JsonResponse(response)
 
- # 通过分类id得到相同文章概略 id空获得所有
+ # 通过分类id得到相同文章概略 id空获得前5项
 
 
 @require_http_methods(["GET"])
@@ -45,11 +45,11 @@ def GetSameArticleByCId(request):
     try:
         id = int(request.GET.get("id"))
         if id == -1:
-            Articles = models.Article.objects.filter(Hidden=True)
+            Articles = models.Article.objects.filter(Hidden=True).order_by('-Id')[:5]
         elif id == 0:
-            Articles = models.Article.objects.filter(Hidden=False)
+            Articles = models.Article.objects.filter(Hidden=False).order_by('-Id')[:5]
         else:
-            Articles = models.Article.objects.filter(CategoryId=id,Hidden=False)
+            Articles = models.Article.objects.filter(CategoryId=id,Hidden=False).order_by('-Id')[:5]
         response['Articles'] = json.loads(
             serializers.serialize("json", Articles))
         response['msg'] = 'success'
@@ -58,6 +58,29 @@ def GetSameArticleByCId(request):
         response['msg'] = str(e)
         response['error_num'] = 1
     return JsonResponse(response)
+
+# 得到相同分类的文章概述的下一页内容
+@require_http_methods(["POST"])
+def GetSameArticleByCIdPage(request):
+    response = {}
+    try:
+        id = int(request.POST.get("id",0))
+        page = int(request.POST.get("page",0))
+        if id == -1:
+            Articles = models.Article.objects.filter(Hidden=True).order_by('-Id')[page*5:(page+1)*5]
+        elif id == 0:
+            Articles = models.Article.objects.filter(Hidden=False).order_by('-Id')[page*5:(page+1)*5]
+        else:
+            Articles = models.Article.objects.filter(CategoryId=id,Hidden=False).order_by('-Id')[page*5:(page+1)*5]
+        response['Articles'] = json.loads(
+            serializers.serialize("json", Articles))
+        response['msg'] = 'success'
+        response['error_num'] = 0
+    except Exception as e:
+        response['msg'] = str(e)
+        response['error_num'] = 1
+    return JsonResponse(response)
+
 
  # 通过文章id得到文章概略 id空获得所有
 
@@ -270,3 +293,5 @@ def pyrequest(request):
     except:
         response["return"] = 0
     return JsonResponse(response)
+
+

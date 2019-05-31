@@ -13,11 +13,10 @@
         <div calss="comment-header">
           <a
             :href="Comment.PersonalBlog"
-            style="font-size: 1.1em;"
           >
             <img :src="Comment.UserHeader" />
             {{Comment.UserName}}</a>
-          <i style="font-size: 0.8em;">发表于：{{Comment.PostedTime}}</i>
+          <i class="comment-time">发表于：{{Comment.PostedTime}}</i>
         </div>
         <div class="comment-body">
           {{Comment.Content}}
@@ -225,6 +224,9 @@ export default {
   margin-top: 20px;
   text-align: left;
 }
+.comment-header{
+  font-size:1.1em;
+}
 .my-comment img {
   margin-right: 5px;
   width: 50px;
@@ -236,6 +238,7 @@ export default {
 }
 .comment-body {
   margin-left: 10px;
+  font-size:1em;
   padding: 0px 0 10px 50px;
 }
 #addComment {
@@ -251,5 +254,21 @@ export default {
 }
 #addComment:hover {
   border-color: black;
+}
+ .comment-time{
+   font-size: 0.8em;
+ }
+
+@media screen and (max-width: 750px) {
+ .comment-header{
+   font-size:0.8em;
+ }
+ .comment-time{
+   font-size: 0.7em;
+ }
+ .comment-body{
+   margin-top:1em;
+   font-size:.9em;
+ }
 }
 </style>

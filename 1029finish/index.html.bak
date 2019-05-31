@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  
+  <title>722 first blog</title>
+  <style>
+    * {
+      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+    a,a:link,a:visited,a:hover,a:active{
+  text-decoration: none;
+  color:inherit;
+}
+    #app {
+      height: 100%
+    }
+   
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <img src="https://tiku.21cnjy.com/tikupic/47/a3/472a3a2cea68925283b51121b8b54789.png" style="vertical-align:middle;">中，<img src="https://tiku.21cnjy.com/tikupic/cd/ee/cdaee1fbc06964752cf8a15c5c38d49c.png" style="vertical-align:middle;">．则<img src="https://tiku.21cnjy.com/tikupic/54/e4/547e4e827293fa2dc1b30a135813da74.png" style="vertical-align:middle;">的内切圆半径<img src="https://tiku.21cnjy.com/tikupic/3e/96/3e796059443fa85aac7f1fba606fccdc.png" style="vertical-align:middle;">______．
+  <!-- built files will be auto injected -->
+</body>
+
+</html>

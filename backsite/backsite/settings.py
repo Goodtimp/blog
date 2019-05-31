@@ -26,7 +26,7 @@ SECRET_KEY = "g64dw+#+*hmmtil-hwvl76*i$0vrq%u*8jdq*&&e#in%laf_ok"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True  # 上线关闭
+DEBUG = False  # 上线关闭
 
 ALLOWED_HOSTS = ["*"]
 CORS_ALLOW_CREDENTIALS = True
@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     "crispy_forms",
     "reversion",
     "mdeditor"
-    
 ]
 
 
@@ -95,11 +94,11 @@ WSGI_APPLICATION = "backsite.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "",
-        "USER": "",
-        "PASSWORD": "",
-        "HOST": "",
-        "PORT": "",
+        "NAME": "722blog",
+        "USER": "722",
+        "PASSWORD": "mni722",
+        "HOST": "47.107.80.19",
+        "PORT": "3306",
         "client_encoding": "UTF8",
     }
 }

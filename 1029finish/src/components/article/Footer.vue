@@ -2,6 +2,7 @@
   <div class="my-like">
     <el-row>
       <el-button
+      class="like-btn"
         type="success"
         v-on:click="like"
         id="like"
@@ -96,5 +97,11 @@ export default {
 #addComment:hover {
   border-color: black;
 }
-
+@media screen and (max-width: 750px) {
+  #like{
+    font-size: 0.8em;
+    width: 90px;
+    height: 40px;
+  }
+}
 </style>

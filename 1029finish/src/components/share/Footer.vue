@@ -4,8 +4,10 @@
       <i class="el-icon-location"> 浙江·绍兴</i><br />
       <i class="el-icon-blog-github"><a href="https://github.com/goodtimep" target="view_window"> goodtimp</a></i>
       <br/>
-      <i class="el-icon-star-on"><a href="http://www.gaogege.live" target="view_window"> 友链：ipso</a></i>
-      <i class="el-icon-star-on"><a href="http://www.iimt.me/" target="view_window"> 友链：iimt</a></i>
+      <i class="el-icon-star-on"><a href="http://www.gaogege.live" target="view_window"> 友链：ipso</a>
+      <a href="http://www.mccyu.com/" target="view_window"> mccyu</a>
+      </i>
+      
       <!--<i class="el-icon-success"></i>-->
     </div>
 
@@ -26,7 +28,7 @@ export default {
   position: absolute;
   bottom:1%;
   line-height: 2em;
-  width: 27%;
+  width: 21%;
   font-size: 0.75em;
   line-height: 1.40em;
 }
