@@ -160,7 +160,7 @@ export default {
   color: #fff;
   
   text-align: center;
-  line-height: 4em;
+  line-height: 3.5em;
   transition: width 0.3s;
   -moz-transition: width 0.3s; /* Firefox 4 */
   -webkit-transition: width 0.3s; /* Safari 和 Chrome */

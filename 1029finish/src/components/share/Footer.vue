@@ -6,6 +6,7 @@
       <br/>
       <i class="el-icon-star-on"><a href="http://www.gaogege.live" target="view_window"> 友链：ipso</a>
       <a href="http://www.mccyu.com/" target="view_window"> mccyu</a>
+      <a href="http://www.yaopeng.top/" target="view_window"> yao</a>
       </i>
       
       <!--<i class="el-icon-success"></i>-->
