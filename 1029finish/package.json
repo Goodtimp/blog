@@ -14,7 +14,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "element": "^0.1.4",
     "element-ui": "^2.4.8",
     "eslint-plugin-html": "^4.0.6",
